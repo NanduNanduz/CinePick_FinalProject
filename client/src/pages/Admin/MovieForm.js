@@ -1,13 +1,44 @@
 import React from 'react'
-import { Form, Modal, Row, Col, Button } from 'antd'
+import { Form, Modal, Row, Col,  message } from 'antd';
+import Button from "../../components/Button";
+import { useDispatch } from "react-redux";
+import { HideLoading, ShowLoading } from "../../redux/loadersSlice"
+import { AddMovie } from '../../apicalls/movies';
+import { set } from 'mongoose';
 
 function MovieForm({
     showMovieFormModal,
     setShowMovieFormModal,
     selectedMovie,
     setSelectedMovie,
-    formType
+    formType,
 }) {
+
+    const dispatch = useDispatch();
+    const onFinish = async (values) => {
+        try {
+            dispatch(ShowLoading())
+            let response = null
+
+            if (formType === "add") {
+                response = await AddMovie(values)
+            } else {
+
+            }
+
+            if (response.success) {
+                message.success(response.message);
+                setShowMovieFormModal(false);
+            }
+            else {
+                message.error(response.message);
+            }
+            dispatch(HideLoading());
+        } catch (error) {
+            dispatch(HideLoading())
+            message.error(error.message)
+        }
+    };
     return (
         <Modal title={formType === "add" ? "Add Movie" : "Edit Movie"}
             open={showMovieFormModal}
@@ -15,8 +46,10 @@ function MovieForm({
             footer={null}
             width={800}
         >
-            <Form
-                layout='vertical' >
+            <Form layout='vertical'
+                onFinish={onFinish}
+
+            >
                 <Row
                     gutter={16}>
 
@@ -53,7 +86,7 @@ function MovieForm({
 
                     <Col span={8}>
                         <Form.Item label=" Movie Release Date" name='releaseDate'>
-                            <input type="text" />
+                            <input type="date" />
                         </Form.Item>
                     </Col>
 
@@ -76,18 +109,19 @@ function MovieForm({
                     </Col>
                 </Row>
 
-                <div className="flex justify-end">
-                    <Button title='Cancel' variant="outlined" type="button"
-                    onClick={{() =>{
-                        
-                    }}}
+                <div className="flex justify-end gap-1">
+                    <Button
+                        title="Cancel"
+                        variant="outlined"
+                        type="button"
+                        onClick={() => setShowMovieFormModal(false)}
                     />
-                    <Button title='Save' type="submit" />
+                        
+                        
+                    <Button title='Save' type="submit" />  
                 </div>
-
             </Form>
         </Modal>
-
     );
 }
 
