@@ -2,7 +2,11 @@ const { axiosInstance } = require(".");
 
 //Register a new user
 
-// when a user logs in, the front-end can send a request to the server through the API to authenticate the user's credentials. If the credentials are valid, the server can respond with an access token or session ID that can be stored on the client-side and used to authenticate subsequent requests without requiring the user to re-enter their credentials each time.
+//  when a user logs in, the front-end can send a request to the server through the API 
+// to authenticate the user's credentials. If the credentials are valid, 
+// the server can respond with an access token or session ID 
+// that can be stored on the client-side and used to authenticate 
+// subsequent requests without requiring the user to re-enter their credentials each time.
 
 export const RegisterUser = async (payload) => {
     try {

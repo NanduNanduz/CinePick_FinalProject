@@ -8,6 +8,14 @@
 .bg-secondary{
     background-color: var(--colour-secondary);
 }
+
+.bg-error{
+    background-color: red;
+}
+.bg-warning{
+    background-color: rgb(209, 165, 53);
+}
+
 .bg-white{
     background-color: white;
 }

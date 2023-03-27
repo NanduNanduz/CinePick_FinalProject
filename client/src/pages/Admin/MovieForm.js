@@ -1,32 +1,42 @@
 import React from 'react'
-import { Form, Modal, Row, Col,  message } from 'antd';
+import { Form, Modal, Row, Col, message } from 'antd';
 import Button from "../../components/Button";
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../../redux/loadersSlice"
-import { AddMovie } from '../../apicalls/movies';
+import { AddMovie, UpdateMovie } from '../../apicalls/movies';
 import { set } from 'mongoose';
+import moment from 'moment';
 
 function MovieForm({
     showMovieFormModal,
     setShowMovieFormModal,
     selectedMovie,
     setSelectedMovie,
+    getData,
     formType,
 }) {
+
+    if (selectedMovie) {
+        selectedMovie.releaseDate = moment(selectedMovie.releaseDate).format("YYYY-MM-DD");
+    }
 
     const dispatch = useDispatch();
     const onFinish = async (values) => {
         try {
             dispatch(ShowLoading())
-            let response = null
+            let response = null;
 
             if (formType === "add") {
-                response = await AddMovie(values)
+                response = await AddMovie(values);
             } else {
-
+                response = await UpdateMovie({
+                    ...values,
+                    movieId: selectedMovie._id
+                });
             }
 
             if (response.success) {
+                getData()
                 message.success(response.message);
                 setShowMovieFormModal(false);
             }
@@ -40,15 +50,19 @@ function MovieForm({
         }
     };
     return (
-        <Modal title={formType === "add" ? "Add Movie" : "Edit Movie"}
+        <Modal title={formType === "add" ? "ADD MOVIE" : "EDIT MOVIE"}
             open={showMovieFormModal}
-            onCancel={() => setShowMovieFormModal(false)}
+            onCancel={() => {
+                setShowMovieFormModal(false)
+                setSelectedMovie(null)
+
+            }}
             footer={null}
             width={800}
         >
             <Form layout='vertical'
                 onFinish={onFinish}
-
+                initialValues={selectedMovie}
             >
                 <Row
                     gutter={16}>
@@ -97,8 +111,7 @@ function MovieForm({
                                 <option value="Action">Action</option>
                                 <option value="Comedy">Comedy</option>
                                 <option value="Drama">Drama</option>
-                                <option value="Romance">Romance</option>
-                                <option value="Hindi">Hindi</option>
+                                <option value="Romance">Romance</option>                              
                             </select>
                         </Form.Item>
                     </Col>
@@ -114,11 +127,14 @@ function MovieForm({
                         title="Cancel"
                         variant="outlined"
                         type="button"
-                        onClick={() => setShowMovieFormModal(false)}
+                        onClick={() => {
+                            setShowMovieFormModal(false)
+                            setSelectedMovie(null)
+                        }}
                     />
-                        
-                        
-                    <Button title='Save' type="submit" />  
+
+
+                    <Button title='Save' type="submit" />
                 </div>
             </Form>
         </Modal>

@@ -29,21 +29,22 @@ function Register() {
     }
   };
 
+
   useEffect(()=>{
     if (localStorage.getItem("token")){
       navigate("/");
     }
   },[]);
 
-
+ 
   return (
-    <div className="flex justify-center h-screen items-center bg-primary">
+    <div className="flex justify-center h-screen items-center" style={ {backgroundImage: "url('https://static.vecteezy.com/system/resources/previews/011/892/107/original/blank-smartphone-with-popcorn-film-strip-clapperboard-on-yellow-background-online-streaming-movie-concept-iluustration-free-vector.jpg')" ,}}
+    >
       <div className="card p-3 w-400">
         <h1 className="text-xl mb-1 ">LOGIN</h1>
         <hr />
         <Form
           layout='vertical' className="mt-1" onFinish={onFinish}>
-
 
           <Form.Item
             label="Email"
