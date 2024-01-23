@@ -1,6 +1,6 @@
 :root{
-    --colour-primary:black;
-    --colour-secondary:#ffffff;
+    --colour-primary:#002E2A;
+    --colour-secondary:#e6b412;
 }
 .bg-primary{
     background-color: var(--colour-primary);
@@ -31,11 +31,11 @@
 }
 
 .text-black{
-    color:black;
+    color:#000;
 
 }   
 .text-white{
-    color: #ffffff;
+    color: #fff;
 }
 
 
