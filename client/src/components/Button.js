@@ -4,13 +4,15 @@ function Button({ title, onClick, variant, disabled, fullWidth, type }) {
 
     let className = 'addMovie bg-primary p-1 text-white'
 
-    if (fullWidth) {
-        className = 'w-full'
+    if (fullWidth)
+     {
+        className += 'w-full'
     }
-    if (variant === 'outlined') {
+    if (variant==='outlined')
+     {
         className = className.replace(
             'bg-primary',
-            'border border-primary text-primary bg-white',
+            'border border-primary text-primary bg-white'
         )
     }
 
