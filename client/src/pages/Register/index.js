@@ -41,7 +41,7 @@ function Register() {
   return (
     <div className="flex justify-center h-screen items-center bg-primary"  style={ {backgroundImage: "url('https://images.cdn3.stockunlimited.net/preview1300/cinema-background-with-movie-objects_1823381.jpg')"}}>
       <div className="card p-3 w-400">
-        <h1 className="text-xl mb-1 ">REGISTER</h1>
+        <h1 className="text-xl mb-1 ">CinePick - REGISTER</h1>
         <hr />
         <Form layout='vertical' className="mt-1" onFinish={onFinish}>
           <Form.Item
