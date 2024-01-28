@@ -4,17 +4,17 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const authMiddleware = require("../middlewares/authMiddleware");
 
-//register a new user
+//register a new user(API Structure)
 router.post('/register', async (req, res) => {
     try {
 
-        //check if the user already exists
+        //check if the user already exists or not
         const userExists = await User.findOne({ email: req.body.email });
         if (userExists) {
             return res.send({
                 success: false,
                 message: "User already exists",
-            })
+            });
         }
 
         //hash the password
