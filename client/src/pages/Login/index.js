@@ -38,14 +38,12 @@ function Register() {
 
  
   return (
-    <div className="flex justify-center h-screen items-center" style={ {backgroundImage: "url('https://static.vecteezy.com/system/resources/previews/011/892/107/original/blank-smartphone-with-popcorn-film-strip-clapperboard-on-yellow-background-online-streaming-movie-concept-iluustration-free-vector.jpg')" ,}}
-    >
+    //style={ {backgroundImage: "url('https://static.vecteezy.com/system/resources/previews/011/892/107/original/blank-smartphone-with-popcorn-film-strip-clapperboard-on-yellow-background-online-streaming-movie-concept-iluustration-free-vector.jpg')" ,}}
+    <div className="flex justify-center h-screen items-center  bg-primary ">
       <div className="card p-3 w-400">
         <h1 className="text-xl mb-1 ">CinePick - LOGIN</h1>
         <hr />
-        <Form
-          layout='vertical' className="mt-1" onFinish={onFinish}>
-
+        <Form layout="vertical" className="mt-1" onFinish={onFinish}>
           <Form.Item
             label="Email"
             name="email"
@@ -60,10 +58,9 @@ function Register() {
           >
             <input type="password" />
           </Form.Item>
-         
 
           <div className="flex flex-col mt-2 gap-1">
-            <Button fullWidth title="LOGIN" type='submit' />
+            <Button fullWidth title="LOGIN" type="submit" />
             <Link to="/register" className="text-primary">
               {" "}
               Don't have an account? Register
@@ -72,7 +69,7 @@ function Register() {
         </Form>
       </div>
     </div>
-  )
+  );
 }
 //'antd' 'form' wrapper 'form.item' for all the elements
 
