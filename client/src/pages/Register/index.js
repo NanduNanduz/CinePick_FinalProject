@@ -17,9 +17,10 @@ function Register() {
   const onFinish = async (values) => {
     try {
       dispatch(ShowLoading());
-      const response = await RegisterUser(values);
+      const response = await RegisterUser(values)
       dispatch(HideLoading());
       if (response.success) {
+        //message from AntD
         message.success(response.message);    
       } else {
         message.error(response.message);
