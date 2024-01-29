@@ -46,7 +46,7 @@ router.post("/login", async (req, res) => {
             return res.send({
                 success: false,
                 message: "User does not exist ",
-            })
+            });
         }
 
         // check if password is correct
@@ -62,7 +62,11 @@ router.post("/login", async (req, res) => {
             });
         }
 
-        //create and assign a token
+        //create and assign a token(userId in an object)
+        //sign method taking 3 parameters:
+        //1.data that you are encrypting
+        //2.Secret key
+        //3.validity(expires in one day ,after 24 hrs have to reload )
         const token = jwt.sign({ userId: user._id }, process.env.jwt_secret, {
 
             expiresIn: "1d",
@@ -71,9 +75,9 @@ router.post("/login", async (req, res) => {
 
         res.send({
             success: true,
-            message: "User logged in successfully",
-            data: token,
-        });
+            //sending the data as token for the front end, front end will store this data and put it in the local storage so after the login successful , it will send this token every time for the protected routes.
+            //So the backend will validate the token if the userId is present in the db then only it will sent the response
+            message: "User logged in successfully" , data : token});
     } catch (error) {
         res.send({
             success: false,
