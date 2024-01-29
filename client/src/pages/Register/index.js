@@ -1,19 +1,16 @@
 import React,{useEffect} from 'react'
-
-import { Form } from 'antd';
+import { Form, message } from 'antd';
 import Button from '../../components/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { RegisterUser } from '../../apicalls/users';
 import { useDispatch } from 'react-redux';
-import { message} from 'react';
-
 import { HideLoading, ShowLoading } from '../../redux/loadersSlice';
 
 
 
 function Register() {
+   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const onFinish = async (values) => {
     try {
       dispatch(ShowLoading());
