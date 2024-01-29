@@ -18,6 +18,7 @@ function Register() {
       dispatch(HideLoading())
       if (response.success) {
         message.success(response.message);
+        //after  showing the success message put the data on the local storage
         localStorage.setItem("token", response.data);
         window.location.href = "/";
       } else {
