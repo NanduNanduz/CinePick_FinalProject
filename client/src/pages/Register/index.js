@@ -18,6 +18,7 @@ function Register() {
       dispatch(HideLoading());
       if (response.success) {
         //message from AntD
+        
         message.success(response.message);    
       } else {
         message.error(response.message);
