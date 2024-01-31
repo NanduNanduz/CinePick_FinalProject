@@ -8,6 +8,7 @@ const { axiosInstance } = require(".");
 // that can be stored on the client-side and used to authenticate 
 // subsequent requests without requiring the user to re-enter their credentials each time.
 
+
 export const RegisterUser = async (payload) => {
     try {
         const response = await axiosInstance.post("/api/users/register", payload);
