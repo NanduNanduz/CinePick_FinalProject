@@ -88,6 +88,7 @@ router.post("/login", async (req, res) => {
 
 
 //get user details by id
+//protected route, validate the token which the front end is sending 
 router.get('/get-current-user',authMiddleware, async (req, res) => {
     try {
         
