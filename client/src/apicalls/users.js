@@ -11,10 +11,13 @@ const { axiosInstance } = require(".");
 
 export const RegisterUser = async (payload) => {
     try {
-        const response = await axiosInstance.post("/api/users/register", payload);
-        return response.data;
+      //API call
+      //payload variable is passed as the data to be sent in the body of the request. 
+      //This payload typically contains information needed for registering a user, such as username, password, email, etc.
+      const response = await axiosInstance.post("/api/users/register", payload);
+      return response.data;
     } catch (error) {
-        return error;
+        return error.response;
     }
 };
 
