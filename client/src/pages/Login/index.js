@@ -31,7 +31,7 @@ function Register() {
     }
   };
 
-
+//if the user is logged in forcefully snd the user to home page, no need to access the login and reg page again
   useEffect(()=>{
     if (localStorage.getItem("token")){
       navigate("/");
