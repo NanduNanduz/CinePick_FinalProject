@@ -41,6 +41,7 @@ function Register() {
 
  
   return (
+    
     //style={ {backgroundImage: "url('https://static.vecteezy.com/system/resources/previews/011/892/107/original/blank-smartphone-with-popcorn-film-strip-clapperboard-on-yellow-background-online-streaming-movie-concept-iluustration-free-vector.jpg')" ,}}
     <div className="flex justify-center h-screen items-center  bg-primary ">
       <div className="card p-3 w-400">
