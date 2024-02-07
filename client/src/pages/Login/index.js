@@ -75,6 +75,7 @@ function Register() {
     </div>
   );
 }
+
 //'antd' 'form' wrapper 'form.item' for all the elements
 
 export default Register;
