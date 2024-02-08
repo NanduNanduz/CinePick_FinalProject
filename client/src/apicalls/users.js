@@ -22,7 +22,6 @@ export const RegisterUser = async (payload) => {
 };
 
 //login a user
-
 export const LoginUser = async (payload) => {
     try {
         const response = await axiosInstance.post("/api/users/login", payload);
@@ -33,7 +32,6 @@ export const LoginUser = async (payload) => {
 }
 
 //Get current user
-
 export const  GetCurrentUser = async () =>{
     try {
         const response = await axiosInstance.get("/api/users/get-current-user");
