@@ -70,7 +70,8 @@ function ProtectedRoute({ children }) {
             </h1>
 
             <i
-              class="ri-logout-circle-r-line ml-2"
+              className="ri-logout-circle-r-line ml-2"
+              //logout 
               onClick={() => {
                 localStorage.removeItem("token");
                 navigate("/login");
