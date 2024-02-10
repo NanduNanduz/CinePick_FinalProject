@@ -121,7 +121,7 @@ function MoviesList() {
     getData();
   }, []);
 
-
+//if showMovieModel is true , then render the movie form
   return (
     <>
       <div className="flex justify-end mb-1 ">
@@ -134,7 +134,6 @@ function MoviesList() {
       </div>
 
       <Table columns={columns} dataSource={Movies} />
-
 
       {showMovieFormModal && (
         <MovieForm
