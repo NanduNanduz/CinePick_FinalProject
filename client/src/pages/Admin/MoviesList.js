@@ -25,7 +25,7 @@ function MoviesList() {
       }
       dispatch(HideLoading());
     } catch (error) {
-      dispatch(HideLoading)
+      dispatch(HideLoading());
       message.error(error.message);
     }
   };
