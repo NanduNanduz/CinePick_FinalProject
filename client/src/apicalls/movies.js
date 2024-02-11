@@ -26,7 +26,7 @@ export const GetAllMovies = async()=>{
 
 //update a movie 
 //take the payload as it is and  send to the backend
-export const UpdateMovie= async(payload) =>{
+export const UpdateMovie = async(payload) =>{
     try {
         const response = await axiosInstance.post("/api/movies/update-movie",payload);
         return response.data;
