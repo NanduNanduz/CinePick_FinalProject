@@ -24,6 +24,7 @@ router.post('/add-movie', authMiddleware, async (req, res) => {
 //get all movies 
 router.get("/get-all-movies",async (req,res) =>{
     try {
+        //sort the latest added to list as 1st one 
         const movies = await Movie.find().sort({ createdAt: -1});
         res.send({
             success:true,
