@@ -9,6 +9,14 @@
     background-color: var(--colour-secondary);
 }
 
+
+.bg-error{
+    background-color: #ff0000;
+}
+.bg-warning{
+    background-color: #a2840e;
+}
+
 .bg-white{
     background-color: white;
 }
@@ -23,13 +31,6 @@ background-color: black;
 }
 .text-secondary{
     color: var(--colour-secondary);
-}
-
-.bg-error{
-    background-color: red;
-}
-.bg-warning{
-    background-color: rgb(209, 165, 53);
 }
 
 

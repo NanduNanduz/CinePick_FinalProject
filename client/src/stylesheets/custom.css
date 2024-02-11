@@ -39,11 +39,11 @@ i {
 }
 
 table {
-  border: 1px solid rgb(190, 193, 194);
+  border: 1px solid #b1b1b1;
 }
 /* table header */
 thead th {
-  border-bottom: 1px solid rgb(190, 193, 194) !important ;
+  border-bottom: 1px solid #b1b1b1 !important ;
   text-transform: uppercase;
 }
 
