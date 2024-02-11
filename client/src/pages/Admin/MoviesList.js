@@ -123,7 +123,7 @@ function MoviesList() {
 
 //if showMovieModel is true , then render the movie form
   return (
-    <>
+    <div>
       <div className="flex justify-end mb-1 ">
         <Button title="Add Movie" variant="outlined"
           onClick={() => {
@@ -144,8 +144,8 @@ function MoviesList() {
           formType={formType}
           getData= {getData}
         />)}
-    </>
+    </div>
   )
 }
 
-export default MoviesList
+export default MoviesList;
