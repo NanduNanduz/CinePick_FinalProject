@@ -118,32 +118,34 @@ function TheatresList() {
       }, []);
 
     return (
-        <div>
-            <div className='flex justify-end mb-1'>
-                <Button variant="outlined" title='Add Theatre'
-                    onClick={() => {
-                        setFormType("add");
-                        setShowTheatreFormModal(true);
-                    }}
-                />
-            </div>
-
-            < Table columns={columns} dataSource={theatres}/>
-           
-
-            {showTheatreFormModal && (
-                <TheatreForm
-                    showTheatreFormModal={showTheatreFormModal}
-                    setShowTheatreFormModal={setShowTheatreFormModal}
-                    formType={formType}
-                    setFormType={setFormType}
-                    selectedTheatre={selectedTheatre}
-                    setSelectedTheatre={setSelectedTheatre}
-                    getData={getData}
-                />
-            )}
+      <div>
+        <div className="flex justify-end mb-1">
+          <Button
+            variant="outlined"
+            title="Add Theatre"
+            onClick={() => {
+              setFormType("add");
+              setShowTheatreFormModal(true);
+            }}
+          />
         </div>
-    )
+
+        <Table columns={columns} dataSource={theatres} />
+
+        {showTheatreFormModal && (
+          <TheatreForm
+            showTheatreFormModal={showTheatreFormModal}
+            setShowTheatreFormModal={setShowTheatreFormModal}
+            formType={formType}
+            setFormType={setFormType}
+            selectedTheatre={selectedTheatre}
+            setSelectedTheatre={setSelectedTheatre}
+            getData={getData}
+          />
+          //if showTheatreFormModal is true then have theatreForm and passing all the props
+        )}
+      </div>
+    );
 }
 
 export default TheatresList;
