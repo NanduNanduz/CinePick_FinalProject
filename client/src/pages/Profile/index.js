@@ -9,15 +9,16 @@ function Profile() {
     <div>
       <PageTitle title="Profile" />
 
-      <Tabs defaultActiveKey='1'>
+      <Tabs defaultActiveKey="1">
         <Tabs.TabPane tab="Bookings" key="1">
           Bookings
         </Tabs.TabPane>
         <Tabs.TabPane tab="Theatres" key="2">
-          <TheatresList/>
+          <TheatresList />
         </Tabs.TabPane>
       </Tabs>
     </div>
+    //added component <TheatresList/>
   );
 }
 
