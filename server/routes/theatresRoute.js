@@ -29,7 +29,7 @@ const Theatre = require("../models/theatreModel");
         const theatres = await Theatre.find().sort({createdAt: -1});
         res.send({
             success: true,
-            mmessage: "Theatre fetched Succesfully",
+            mmessage: "Theatres fetched Succesfully",
             data: theatres,
         });    
     } catch (error) {

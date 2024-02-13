@@ -21,6 +21,7 @@ function TheatreForm({
     try {
       dispatch(ShowLoading());
       let response = null;
+      //calling add theatre
       if (formType === "add") {
         response = await AddTheatre(values);
       } else {
