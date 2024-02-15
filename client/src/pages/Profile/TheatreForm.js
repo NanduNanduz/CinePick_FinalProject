@@ -58,6 +58,7 @@ function TheatreForm({
       <Form
         layout="vertical"
         onFinish={onFinish}
+      //popup the form with  already existing values(initial values) when going to edit 
         initialValues={selectedTheatre}
       >
         <Form.Item
