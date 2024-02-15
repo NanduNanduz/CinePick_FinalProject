@@ -142,6 +142,7 @@ function TheatresList() {
             setFormType={setFormType}
             selectedTheatre={selectedTheatre}
             setSelectedTheatre={setSelectedTheatre}
+            //after model pop up is done then the table reloaded automatically
             getData={getData}
           />
           //if showTheatreFormModal is true then have theatreForm and passing all the props
