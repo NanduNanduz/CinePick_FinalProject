@@ -23,6 +23,8 @@ function TheatresList() {
     const getData = async () => {
         try {
           dispatch(ShowLoading());
+          //owners need to get only their theatre(seperate api call)
+          //passing the payload (owner: user._id)to list the data
           const response = await GetAllTheatresByOwner({
             owner: user._id,
           });
