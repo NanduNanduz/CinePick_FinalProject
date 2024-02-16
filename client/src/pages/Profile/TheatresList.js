@@ -96,7 +96,7 @@ function TheatresList() {
           title: "Action",
           dataIndex: "action",
           render: (text, record) => {
-            return <div className='flex gap-1'>
+            return <div className='flex gap-1 items-center'>
               <i className="action ri-delete-bin-line "
               onClick={()=> {
                 handleDelete(record._id);
@@ -108,12 +108,11 @@ function TheatresList() {
                 setFormType("edit");
                 setShowTheatreFormModal(true);//model popup
               }}></i>
-            </div>
-    
-          }
-    
-        }
 
+              {record.isActive && <span className="underline">Shows</span>}
+            </div>   
+          } 
+        }
       ];
 
 
