@@ -46,9 +46,11 @@ function TheatresList() {
           dispatch(ShowLoading());
           const response = await DeleteTheatre({ theatreId: id});
           if(response.success){
+            //displays an error message to the user based on the data received as a response from an API call.
             message.success(response.message);
             getData();
           }else {
+            //is typically used to display messages based on errors that occur during the execution of the code.
             message.error(response.message);
           }
           dispatch(HideLoading());
@@ -79,6 +81,7 @@ function TheatresList() {
           title : "Status",
              dataIndex: "isActive",
              render: (text,record)=>{
+              //text having the isActive value ,is true then 
               if(text)
               {
                 return "Approved"
