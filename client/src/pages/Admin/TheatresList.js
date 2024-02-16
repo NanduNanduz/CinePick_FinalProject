@@ -83,8 +83,6 @@ function TheatresList() {
               }
              },
         },
-
-
         {
           title: "Action",
           dataIndex: "action",
@@ -93,8 +91,6 @@ function TheatresList() {
               {record.isActive  && <span className='underline'
               onClick={()=>handleStatusChange(record)}
               >Block</span>}
-
-
               {!record.isActive  && <span className='underline'
               onClick={()=>handleStatusChange(record)}
               >Approve</span>}
@@ -104,20 +100,12 @@ function TheatresList() {
           },
         },
       ];
-
-
-
       useEffect(() => {
         getData();
       }, []);
-
     return (
         <div>
-           
-
             < Table columns={columns} dataSource={theatres}/>
-           
-
         </div>
     )
 }
