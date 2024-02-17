@@ -5,7 +5,7 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
   const [view, setView] = React.useState("table");
   return (
     <Modal
-      title=" "
+      title=""
       open={openShowsModal}
       onCancel={() => setOpenShowsModal(false)}
       width={1000}
@@ -15,14 +15,17 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
         Theatre : {theatre.name}
       </h1>
       <hr />
+
       <div className="flex justify-end mt-1">
         <Button
-          varient="outlined"
+          variant="outlined"
           title="Add Show"
           onClick={() => {
             setView("form");
           }}
-        />
+        >
+          Add Show
+        </Button>
       </div>
     </Modal>
   );
