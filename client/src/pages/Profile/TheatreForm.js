@@ -44,6 +44,7 @@ function TheatreForm({
       message.error(error.message);
     }
   };
+  
   //model pop up from antd 
   return (
     <Modal
