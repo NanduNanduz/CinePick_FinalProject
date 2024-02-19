@@ -76,7 +76,7 @@ export const AddShow = async (payload) => {
 };
 
 //get all shows
-export const GetAllShows = async (payload) => {
+export const GetAllShowsByTheatre = async (payload) => {
   try {
     const response = await axiosInstance.post(
       "/api/theatres/get-all-shows-by-theatre",
