@@ -4,6 +4,11 @@ import Button from "../../../components/Button";
 import { GetAllMovies } from "../../../apicalls/movies";
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../../../redux/loadersSlice";
+import {
+  AddShow,
+  GetAllShows,
+  GetAllShowsByTheatre,
+} from "../../../apicalls/theatres";
 
 function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
   const [view, setView] = React.useState("table");
@@ -13,18 +18,49 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
   //need to have the list of movies here to pick the movie
   const dispatch = useDispatch();
 
-  const getMovies = async () => {
+  const getData = async () => {
     try {
-      const response = await GetAllMovies();
-      if (response.success) {
-        setMovies(response.data);
+      const moviesResponse = await GetAllMovies();
+      if (moviesResponse.success) {
+        setMovies(moviesResponse.data);
       } else {
-        message.error(response.message);
+        message.error(moviesResponse.message);
+      }
+
+      const showsResponse = await GetAllShowsByTheatre({
+        theatreId: theatre._id,
+      });
+      if (showsResponse.success) {
+        setShows(showsResponse.data);
+      } else {
+        message.error(showsResponse.message);
       }
     } catch (error) {
       message.error(error.message);
     }
   };
+
+  const handleAddShow = async (values) => {
+    try {
+      dispatch(ShowLoading());
+      const response = await AddShow({
+        ...values,
+        theatre: theatre._id,
+      });
+      if (response.success) {
+        message.success(response.message);
+        getData();
+        setView("table");
+      } else {
+        message.error(response.message);
+      }
+      dispatch(HideLoading());
+    } catch (error) {
+      message.error(error.message);
+      dispatch(HideLoading());
+    }
+  };
+
   const columns = [
     {
       title: "Show Name",
@@ -61,7 +97,7 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
   ];
 
   useEffect(() => {
-    getMovies();
+    getData();
   });
 
   return (
@@ -94,7 +130,7 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
       {view === "table" && <Table columns={columns} dataSource={shows} />}
 
       {view === "form" && (
-        <Form layout="vertical">
+        <Form layout="vertical" onFinish={handleAddShow}>
           <Row gutter={[16, 16]}>
             <Col span={8}>
               <Form.Item
