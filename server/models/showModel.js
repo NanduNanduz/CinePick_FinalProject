@@ -41,3 +41,4 @@ const showSchema = new mongoose.Schema(
 );
 
 const Show = mongoose.model('shows', showSchema);
+module.exports = Show;
