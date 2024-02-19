@@ -15,17 +15,14 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
 
   const getMovies = async () => {
     try {
-    
       const response = await GetAllMovies();
       if (response.success) {
         setMovies(response.data);
       } else {
         message.error(response.message);
       }
-     
     } catch (error) {
       message.error(error.message);
-   
     }
   };
   const columns = [
@@ -86,47 +83,81 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
         </h1>
         {view === "table" && (
           <Button
-          variant="outlined"
-          title="Add Show"
-          onClick={()=>{
-            setView("form");
-          }}
+            variant="outlined"
+            title="Add Show"
+            onClick={() => {
+              setView("form");
+            }}
           />
-
         )}
-
       </div>
       {view === "table" && <Table columns={columns} dataSource={shows} />}
 
       {view === "form" && (
         <Form layout="vertical">
-          <Row  
-           gutter={[16, 16]}
-          
-          >
+          <Row gutter={[16, 16]}>
             <Col span={8}>
-              <Form.Item label="Show Name" name="name">
+              <Form.Item
+                label="Show Name"
+                name="name"
+                rules={[{ required: true, message: "Please input show name!" }]}
+              >
                 <input />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Date" name="date">
+              <Form.Item
+                label="Date"
+                name="date"
+                rules={[{ required: true, message: "Please input show date!" }]}
+              >
                 <input type="date" />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Time" name="time">
+              <Form.Item
+                label="Time"
+                name="time"
+                rules={[{ required: true, message: "Please input show time!" }]}
+              >
                 <input type="time" />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Movie" name="movie">
+              <Form.Item
+                label="Movie"
+                name="movie"
+                rules={[{ required: true, message: "Please input show movie!" }]}
+              >
                 <select>
                   <option value="">Select Movie</option>
                   {movies.map((movie) => (
                     <option value={movie._id}>{movie.title}</option>
                   ))}
                 </select>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item
+                label="Ticket Price"
+                name="ticketPrice"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input show ticket price!",
+                  },
+                ]}
+              >
+                <input type="number" />
+              </Form.Item>
+            </Col>
+            <Col span="8">
+              <Form.Item
+                label="Total Seats"
+                name="totalSeates"
+                rules={[{ required: true, message: "Please input show total seats!" }]}
+              >
+                <input type="number" />
               </Form.Item>
             </Col>
           </Row>
