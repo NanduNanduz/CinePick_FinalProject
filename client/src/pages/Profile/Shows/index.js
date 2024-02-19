@@ -127,7 +127,9 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
               <Form.Item
                 label="Movie"
                 name="movie"
-                rules={[{ required: true, message: "Please input show movie!" }]}
+                rules={[
+                  { required: true, message: "Please input show movie!" },
+                ]}
               >
                 <select>
                   <option value="">Select Movie</option>
@@ -155,12 +157,25 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
               <Form.Item
                 label="Total Seats"
                 name="totalSeates"
-                rules={[{ required: true, message: "Please input show total seats!" }]}
+                rules={[
+                  { required: true, message: "Please input show total seats!" },
+                ]}
               >
                 <input type="number" />
               </Form.Item>
             </Col>
           </Row>
+
+          <div className="flex justify-end gap-1">
+            <Button
+              variant="outlined"
+              title="Cancel"
+              onClick={() => {
+                setView("table");
+              }}
+            />
+            <Button variant="contained" title="SAVE" type="submit" />
+          </div>
         </Form>
       )}
     </Modal>
