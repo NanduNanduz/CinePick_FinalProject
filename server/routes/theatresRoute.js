@@ -107,4 +107,23 @@ router.post("/add-show", async (req, res) => {
   }
 });
 
+//get all shows by theatre
+router.post("/get-all-shows-by-theatre", async (req, res) => {
+  try {
+    const shows = await Show.find({ theatre: req.body.theatreId }).sort({
+      createdAt: -1,
+    });
+    res.send({
+      success: true,
+      message: "Shows fetched successfully",
+      data: shows,
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
 module.exports = router;
