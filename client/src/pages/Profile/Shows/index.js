@@ -4,11 +4,9 @@ import Button from "../../../components/Button";
 import { GetAllMovies } from "../../../apicalls/movies";
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../../../redux/loadersSlice";
-import {
-  AddShow,
-  GetAllShows,
-  GetAllShowsByTheatre,
-} from "../../../apicalls/theatres";
+import { AddShow, GetAllShowsByTheatre } from "../../../apicalls/theatres";
+import moment from "moment";
+
 
 function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
   const [view, setView] = React.useState("table");
@@ -69,6 +67,10 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
     {
       title: "Date",
       dataIndex: "date",
+      render : (text,record) => {
+        return moment(text).format("MMM Do YYYY")
+      }
+    
     },
     {
       title: "Time",
@@ -147,7 +149,11 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
                 name="date"
                 rules={[{ required: true, message: "Please input show date!" }]}
               >
-                <input type="date" />
+                <input
+                  type="date"
+                  //HTML Type Date for to pick the min date(old dates are blocked)
+                  min={new Date().toISOString().split("T")[0]}
+                />
               </Form.Item>
             </Col>
             <Col span={8}>
@@ -192,7 +198,7 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
             <Col span="8">
               <Form.Item
                 label="Total Seats"
-                name="totalSeates"
+                name="totalSeats"
                 rules={[
                   { required: true, message: "Please input show total seats!" },
                 ]}
