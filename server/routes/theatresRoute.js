@@ -132,5 +132,20 @@ router.post("/get-all-shows-by-theatre", async (req, res) => {
 
 //delete show
 
+router.post("/delete-show", async (req, res)=>{
+  try{
+    await Show.findByIdAndDelete(req.body.showId);
+    res.send({
+      success: true,
+      message: "Show deleted successfully."
+    })
+
+  }catch(error){
+    res.send({
+      success: false,
+      message: error.message
+    })
+  }
+});
 
 module.exports = router;

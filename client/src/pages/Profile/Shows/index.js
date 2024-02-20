@@ -4,9 +4,8 @@ import Button from "../../../components/Button";
 import { GetAllMovies } from "../../../apicalls/movies";
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../../../redux/loadersSlice";
-import { AddShow, GetAllShowsByTheatre } from "../../../apicalls/theatres";
+import { AddShow, DeleteShow, GetAllShowsByTheatre } from "../../../apicalls/theatres";
 import moment from "moment";
-
 
 function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
   const [view, setView] = React.useState("table");
@@ -59,6 +58,24 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
     }
   };
 
+  const handleDelete = async(id)=>{
+    try{
+      dispatch(ShowLoading());
+      const response = await DeleteShow({showId: id});
+
+      if (response.success){
+        message.success(response.message);
+        getData();
+      }else{
+        message.error(response.message)
+      }
+      dispatch(HideLoading());
+    }catch(error) {
+      message.error(error.message);
+      dispatch(HideLoading());
+    }
+  };
+
   const columns = [
     {
       title: "Show Name",
@@ -67,10 +84,9 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
     {
       title: "Date",
       dataIndex: "date",
-      render : (text,record) => {
-        return moment(text).format("MMM Do YYYY")
-      }
-    
+      render: (text, record) => {
+        return moment(text).format("MMM Do YYYY");
+      },
     },
     {
       title: "Time",
@@ -79,6 +95,9 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
     {
       title: "Movie",
       dataIndex: "movie",
+      render: (text, record) => {
+        return record.movie.title;
+      },
     },
     {
       title: "Ticket Price",
@@ -91,10 +110,25 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
     {
       title: "Available Seats",
       dataIndex: "availableSeats",
+      render: (text, record) => {
+        return record.totalSeats - record.bookedSeats.length;
+      },
     },
     {
       title: "Action",
       dataIndex: "action",
+      render: (text, record) => {
+        return (
+          <div className="flex gap-1 items-center">
+            <i
+              className="action ri-delete-bin-line "
+              onClick={() => {
+                handleDelete(record._id);
+              }}
+            ></i>
+          </div>
+        );
+      },
     },
   ];
 
