@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
-import { message, Table } from "antd";
+import { Col, message, Row, Table } from "antd";
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
 import { GetAllMovies } from "../../apicalls/movies";
+import {useNavigate} from "react-router-dom";
 
 function Home() {
   const [Movies, setMovies] = React.useState([]);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const getData = async () => {
@@ -27,14 +29,29 @@ function Home() {
   useEffect(() => {
     getData();
   }, []);
-  return(
-   <div>
-    <input type="text"
-    className="search-input"
-    placeholder="Search for movies"
-    />
-   </div>
-  )
+  return (
+    <div>
+      <input
+        type="text"
+        className="search-input"
+        placeholder="Search for movies"
+      />
+      <Row gutter={[20]} className="mt-2">
+        {Movies.map((movie) => (
+          <Col span={6}>
+            <div className="card flex flex-col gap-1 cursor-pointer"
+            onClick={()=>navigate(`/movie/${movie._id}`)}
+            >
+              <img src={movie.poster} alt="" height={200}></img>
+              <div className="flex justify-center p-1">
+                <h1 className="text-md uppercase">{movie.title}</h1>
+              </div>
+            </div>
+          </Col>
+        ))}
+      </Row>
+    </div>
+  );
 }
 
 export default Home;
