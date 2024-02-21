@@ -14,6 +14,7 @@ function MoviesList() {
   const [selectedMovie, setSelectedMovie] = React.useState(null);
   const [formType, setFormType] = React.useState("add");
   const dispatch = useDispatch();
+  
   const getData = async () => {
     try {
       dispatch(ShowLoading());
