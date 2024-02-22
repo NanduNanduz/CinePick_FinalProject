@@ -3,7 +3,7 @@ import { Col, message, Row, Table } from "antd";
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
 import { GetAllMovies } from "../../apicalls/movies";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const [Movies, setMovies] = React.useState([]);
@@ -39,8 +39,9 @@ function Home() {
       <Row gutter={[20]} className="mt-2">
         {Movies.map((movie) => (
           <Col span={6}>
-            <div className="card flex flex-col gap-1 cursor-pointer"
-            onClick={()=>navigate(`/movie/${movie._id}`)}
+            <div
+              className="card flex flex-col gap-1 cursor-pointer"
+              onClick={() => navigate(`/movie/${movie._id}`)}
             >
               <img src={movie.poster} alt="" height={200}></img>
               <div className="flex justify-center p-1">
