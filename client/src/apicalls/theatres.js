@@ -101,3 +101,16 @@ export const DeleteShow = async(payload) =>{
     return error.response;
   }
 }
+
+//get all theaters for a movie 
+export const GetAllTheatresByMovie = async(payload)=>{
+  try{
+    const response = await axiosInstance.post(
+      "/api/theatres/get-all-theatres-by-movie",
+      payload
+    );
+    return response.data;
+  }catch(error){
+    return error.response;
+  }
+}

@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import { message } from "antd";
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
-import { GetMovieById } from "../../apicalls/movies";
+import { GetAllMovies, GetMovieById } from "../../apicalls/movies";
 import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
+import { GetAllTheatres, GetAllTheatresByMovie } from "../../apicalls/theatres";
 
 function TheatresForMovie() {
   // get date from query string from home
@@ -14,6 +15,7 @@ function TheatresForMovie() {
   );
 
   const [Movies, setMovies] = React.useState([]);
+  const [theaters, setTheatres] = React.useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
@@ -34,9 +36,30 @@ function TheatresForMovie() {
     }
   };
 
+  const getTheatres = async () => {
+    try {
+      dispatch(ShowLoading());
+      const response = await GetAllTheatresByMovie({date, movie : params.id});
+      if (response.success){
+        setTheatres(response.data);
+      }else{
+        message.error(response.message)
+      }
+      dispatch(HideLoading());
+    } catch (error) {
+      dispatch(HideLoading());
+      message.error(error.message)
+    };
+  };
+
   useEffect(() => {
     getData();
   }, []);
+
+  useEffect(() => {
+    getTheatres();
+  }, [date]);
+
   return (
     Movies && (
       <div>

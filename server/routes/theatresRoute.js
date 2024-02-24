@@ -111,7 +111,7 @@ router.post("/add-show", async (req, res) => {
 router.post("/get-all-shows-by-theatre", async (req, res) => {
   try {
     const shows = await Show.find({ theatre: req.body.theatreId })
-    //get the complete movie object
+      //get the complete movie object
       .populate("movie")
       .sort({
         createdAt: -1,
@@ -129,22 +129,59 @@ router.post("/get-all-shows-by-theatre", async (req, res) => {
   }
 });
 
-
 //delete show
-
-router.post("/delete-show", async (req, res)=>{
-  try{
+router.post("/delete-show", async (req, res) => {
+  try {
     await Show.findByIdAndDelete(req.body.showId);
     res.send({
       success: true,
-      message: "Show deleted successfully."
-    })
-
-  }catch(error){
+      message: "Show deleted successfully.",
+    });
+  } catch (error) {
     res.send({
       success: false,
-      message: error.message
-    })
+      message: error.message,
+    });
+  }
+});
+
+//get all unique theatre which have shows of a movie (input will be only date and the movie )
+router.post("/get-all-theatre-by-movie", async (req, res) => {
+  try {
+    const { movie, date } = req.body;
+    //find(fetching) all shows of a movie
+    const shows = await Show.find({ movie, date })
+      .populate("theatre")
+      .sort({ createdAt: -1 });
+
+    //get all unique theatre(removing duplicate theatre and adding the shows in a paticular day for that movie)
+
+    let uniqueTheatres = [];
+    shows.forEach((show) => {
+      const theatre = uniqueTheatres.find(
+        (theatre) => theatre._id == show.theatre._id
+      );
+
+      if (!theatre) {
+        const showsForThisTheatre = show.filter(
+          (showObj) => showObj.theatre._id == show.theatre._id
+        );
+        uniqueTheatres.push({
+          ...show.theatre._doc,
+          shows: showsForThisTheatre,
+        });
+      }
+    });
+    res.send({
+      success: true,
+      message: "Theatre fetched successfully",
+      data: uniqueTheatres,
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: error.message,
+    });
   }
 });
 
