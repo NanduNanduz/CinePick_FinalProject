@@ -5,6 +5,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    color: rgb(43, 43, 43);
 }
 .ant-form-item{
     margin-bottom: 10px;
