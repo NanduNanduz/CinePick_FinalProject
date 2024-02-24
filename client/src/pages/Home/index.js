@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
 import { GetAllMovies } from "../../apicalls/movies";
 import { useNavigate } from "react-router-dom";
+import { Mongoose } from "mongoose";
+import moment from "moment";
 
 function Home() {
   const [Movies, setMovies] = React.useState([]);
@@ -41,7 +43,11 @@ function Home() {
           <Col span={6}>
             <div
               className="card flex flex-col gap-1 cursor-pointer"
-              onClick={() => navigate(`/movie/${movie._id}`)}
+              onClick={() =>
+                navigate(
+                  `/movie/${movie._id}?date=${moment().format("YYYY-MM-DD")}`
+                )
+              }
             >
               <img src={movie.poster} alt="" height={200}></img>
               <div className="flex justify-center p-1">

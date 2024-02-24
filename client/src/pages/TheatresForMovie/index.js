@@ -1,12 +1,18 @@
 import React, { useEffect } from "react";
-import {message } from "antd";
+import { message } from "antd";
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
-import {  GetMovieById } from "../../apicalls/movies";
+import { GetMovieById } from "../../apicalls/movies";
 import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
 
 function TheatresForMovie() {
+  // get date from query string from home
+  const tempDate = new URLSearchParams(window.location.search).get("date");
+  const [date, setDate] = React.useState(
+    tempDate || moment().format("YYYY-MM-DD")
+  );
+
   const [Movies, setMovies] = React.useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -35,9 +41,9 @@ function TheatresForMovie() {
     Movies && (
       <div>
         {/* movieInformation */}
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center mb-2">
           <div>
-            <h1 className="text-xl">
+            <h1 className="text-2xl uppercase">
               {Movies.title}({Movies.language})
             </h1>
             <h1 className="text-md">Duration : {Movies.duration} mins</h1>
@@ -46,10 +52,27 @@ function TheatresForMovie() {
             </h1>
             <h1 className="text-md">Genre : {Movies.genre}</h1>
           </div>
+
+          <div>
+            <h1 className="text-md">Select Date</h1>
+            <input
+              type="date"
+              min={moment().format("YYYY-MM-DD")}
+              value={date}
+              onChange={(e) => {
+                setDate(e.target.value);
+                navigate(`/movie/${params.id}?date=${e.target.value}`);
+              }}
+            />
+          </div>
         </div>
 
+        <hr />
+
         {/* movie theatres list */}
-        <div></div>
+        <div className="mt-1">
+          <h1 className="text-xl uppercase">Theatres</h1>
+        </div>
       </div>
     )
   );
