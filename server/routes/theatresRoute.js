@@ -146,7 +146,7 @@ router.post("/delete-show", async (req, res) => {
 });
 
 //get all unique theatre which have shows of a movie (input will be only date and the movie )
-router.post("/get-all-theatre-by-movie", async (req, res) => {
+router.post("/get-all-theatres-by-movie", async (req, res) => {
   try {
     const { movie, date } = req.body;
     //find(fetching) all shows of a movie
@@ -163,7 +163,7 @@ router.post("/get-all-theatre-by-movie", async (req, res) => {
       );
 
       if (!theatre) {
-        const showsForThisTheatre = show.filter(
+        const showsForThisTheatre = shows.filter(
           (showObj) => showObj.theatre._id == show.theatre._id
         );
         uniqueTheatres.push({
@@ -174,7 +174,7 @@ router.post("/get-all-theatre-by-movie", async (req, res) => {
     });
     res.send({
       success: true,
-      message: "Theatre fetched successfully",
+      message: "Theatres fetched successfully",
       data: uniqueTheatres,
     });
   } catch (error) {
