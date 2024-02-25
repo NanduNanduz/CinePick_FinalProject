@@ -111,7 +111,10 @@ function TheatresForMovie() {
                   )
                   .map((show) => (
                     <div
-                    
+                      className="card p-1 cursor-pointer"
+                      onClick={() => {
+                        navigate(`/book-show/${show._id}`);
+                      }}
                     >
                       <h1 className="text-sm">
                         Show Time :{" "}
