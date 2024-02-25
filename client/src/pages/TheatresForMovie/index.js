@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { message } from "antd";
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
-import { GetAllMovies, GetMovieById } from "../../apicalls/movies";
+import { GetMovieById } from "../../apicalls/movies";
 import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
-import { GetAllTheatres, GetAllTheatresByMovie } from "../../apicalls/theatres";
+import { GetAllTheatresByMovie } from "../../apicalls/theatres";
 
 function TheatresForMovie() {
   // get date from query string from home
@@ -15,7 +15,7 @@ function TheatresForMovie() {
   );
 
   const [Movies, setMovies] = React.useState([]);
-  const [theaters, setTheatres] = React.useState([]);
+  const [theatres, setTheatres] = React.useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
@@ -39,17 +39,17 @@ function TheatresForMovie() {
   const getTheatres = async () => {
     try {
       dispatch(ShowLoading());
-      const response = await GetAllTheatresByMovie({date, movie : params.id});
-      if (response.success){
+      const response = await GetAllTheatresByMovie({ date, movie: params.id });
+      if (response.success) {
         setTheatres(response.data);
-      }else{
-        message.error(response.message)
+      } else {
+        message.error(response.message);
       }
       dispatch(HideLoading());
     } catch (error) {
       dispatch(HideLoading());
-      message.error(error.message)
-    };
+      message.error(error.message);
+    }
   };
 
   useEffect(() => {
@@ -95,6 +95,33 @@ function TheatresForMovie() {
         {/* movie theatres list */}
         <div className="mt-1">
           <h1 className="text-xl uppercase">Theatres</h1>
+        </div>
+
+        <div className="mt-1 flex flex-col gap-1">
+          {theatres.map((theatre) => (
+            <div className="card p-2">
+              <h1 className="text-md uppercase">{theatre.name}</h1>
+              <h1 className="text-sm">Address : {theatre.address}</h1>
+              <div className="divider"></div>
+              {/* sorting based on the time then maping it and rendering the shows*/}
+              <div className="flex gap-2">
+                {theatre.shows
+                  .sort(
+                    (a, b) => moment(a.time, "HH:mm") - moment(b.time, "HH:mm")
+                  )
+                  .map((show) => (
+                    <div
+                    
+                    >
+                      <h1 className="text-sm">
+                        Show Time :{" "}
+                        {moment(show.time, "HH:mm").format("hh:mm A")}
+                      </h1>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     )
