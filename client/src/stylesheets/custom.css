@@ -52,7 +52,7 @@ thead th {
   border-radius: 5px;
 }
 
-.divider{
+.divider {
   border-bottom: 1px solid #e1e1e1;
   margin: 5px 0;
 }
@@ -64,7 +64,20 @@ thead th {
   justify-content: center;
   align-items: center;
   border: 1px solid #b1b1b1;
+  cursor: pointer;
+}
 
+
+.selected-seat {
+  background-color: #118838;
+}
+
+.selected-seat h1{
+  color: white !important;
+}
+
+.booked-seat {
+  background-color: #b1b1b1;
 }
 
 /* loader */
