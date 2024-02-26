@@ -8,6 +8,7 @@ import moment from "moment";
 
 function BookShow() {
   const [show, setShow] = React.useState(null);
+  const [seletedSeats, setSeletedSeats] = React.useState([]);
   const params = useParams();
   const dispatch = useDispatch();
 
@@ -28,7 +29,7 @@ function BookShow() {
   };
 
   const getSeats = () => {
-    const columns = 10;
+    const columns = 12;
     const totalSeats = show.totalSeats;
     const rows = Math.ceil(totalSeats / columns);
     //iterate through the total seats(once 12 seats are filled go to the next row (eg: 0 - 199 for 120))
@@ -36,12 +37,36 @@ function BookShow() {
       <div className="flex gap-1 flex-col p-2 card">
         {Array.from(Array(rows).keys()).map((seat, index) => {
           return (
-            <div className="flex gap-1">
+            <div className="flex gap-1 justify-center">
               {Array.from(Array(columns).keys()).map((column, index) => {
+                const seatNumber = seat * columns + column + 1;
+                let seatClass = "seat";
+
+                if (seletedSeats.includes(seat * columns + column + 1)) {
+                  seatClass = seatClass + " selected-seat";
+                }
+
+                if (show.bookedSeats.includes(seat * columns + column + 1)) {
+                  seatClass = seatClass + " booked-seat";
+                }
+
                 return (
-                  <div className="seat">
+                  seat * columns + column + 1 <= totalSeats &&(
+                  <div
+                    className={seatClass}
+                    onClick={() => {   
+                      if (seletedSeats.includes(seatNumber)) {
+                        setSeletedSeats(
+                          seletedSeats.filter((item) => item !== seatNumber)
+                        );
+                      } else {
+                        setSeletedSeats([...seletedSeats, seatNumber]);
+                      }
+                    }}
+                  >
                     <h1 className="text-sm">{seat * columns + column + 1}</h1>
                   </div>
+                  )
                 );
               })}
             </div>
@@ -80,9 +105,7 @@ function BookShow() {
 
         {/* Seats */}
 
-       <div className="flex justify-center mt-2">
-         {getSeats()}
-       </div>
+        <div className="flex justify-center mt-2">{getSeats()}</div>
       </div>
     )
   );
