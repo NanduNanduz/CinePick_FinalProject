@@ -56,7 +56,16 @@ thead th {
   border-bottom: 1px solid #e1e1e1;
   margin: 5px 0;
 }
+/* seats */
+.seat {
+  height: 30px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #b1b1b1;
 
+}
 
 /* loader */
 
