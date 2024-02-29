@@ -7,6 +7,7 @@ import { GetShowById } from "../../apicalls/theatres";
 import moment from "moment";
 import StripeCheckout from "react-stripe-checkout";
 import Button from "../../components/Button";
+import { MakePayment } from "../../apicalls/bookings";
 
 function BookShow() {
   const [show, setShow] = React.useState(null);
@@ -78,8 +79,23 @@ function BookShow() {
     );
   };
 
-  const onToken = (token) => {
-    console.log(token);
+  const onToken = async (token) => {
+    try {
+      dispatch(ShowLoading());
+      const response = await MakePayment({
+        token,
+        amount: seletedSeats.length * show.ticketPrice * 100,
+      });
+      if (response.success) {
+        message.success(response.message);
+      } else {
+        message.error(response.message);
+      }
+      dispatch(HideLoading());
+    } catch (error) {
+      message.error(error.message);
+      dispatch(HideLoading());
+    }
   };
 
   useEffect(() => {
@@ -114,17 +130,19 @@ function BookShow() {
         <div className="flex justify-center mt-2">{getSeats()}</div>
         {/* once after selecting the seats Book Now button will show */}
 
-        {seletedSeats.length > 0 && <div className="mt-2 flex justify-center">
-          <StripeCheckout
-            currency="INR"
-            token={onToken}
-            //tot qty of the seats * price of the show.
-            amount={seletedSeats.length * show.ticketPrice * 100}
-            stripeKey="pk_test_51OoSvVSDEzzlJpB9sjxGI0I9p1PaC3S4KqbcubK20IqklWtbrh4p7ZQv9834v3bUD1syEMcadvzs57kzLnoYOCWN00eYBU2U3K"
-          >
-            <Button title="Book Now" />
-          </StripeCheckout>
-        </div>}
+        {seletedSeats.length > 0 && (
+          <div className="mt-2 flex justify-center">
+            <StripeCheckout
+              currency="INR"
+              token={onToken}
+              //tot qty of the seats * price of the show.
+              amount={seletedSeats.length * show.ticketPrice * 100}
+              stripeKey="pk_test_51OoSvVSDEzzlJpB9sjxGI0I9p1PaC3S4KqbcubK20IqklWtbrh4p7ZQv9834v3bUD1syEMcadvzs57kzLnoYOCWN00eYBU2U3K"
+            >
+              <Button title="Book Now" />
+            </StripeCheckout>
+          </div>
+        )}
       </div>
     )
   );
