@@ -5,6 +5,8 @@ import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
 import { message } from "antd";
 import { GetShowById } from "../../apicalls/theatres";
 import moment from "moment";
+import StripeCheckout from "react-stripe-checkout";
+import Button from "../../components/Button";
 
 function BookShow() {
   const [show, setShow] = React.useState(null);
@@ -51,21 +53,21 @@ function BookShow() {
                 }
 
                 return (
-                  seat * columns + column + 1 <= totalSeats &&(
-                  <div
-                    className={seatClass}
-                    onClick={() => {   
-                      if (seletedSeats.includes(seatNumber)) {
-                        setSeletedSeats(
-                          seletedSeats.filter((item) => item !== seatNumber)
-                        );
-                      } else {
-                        setSeletedSeats([...seletedSeats, seatNumber]);
-                      }
-                    }}
-                  >
-                    <h1 className="text-sm">{seat * columns + column + 1}</h1>
-                  </div>
+                  seat * columns + column + 1 <= totalSeats && (
+                    <div
+                      className={seatClass}
+                      onClick={() => {
+                        if (seletedSeats.includes(seatNumber)) {
+                          setSeletedSeats(
+                            seletedSeats.filter((item) => item !== seatNumber)
+                          );
+                        } else {
+                          setSeletedSeats([...seletedSeats, seatNumber]);
+                        }
+                      }}
+                    >
+                      <h1 className="text-sm">{seat * columns + column + 1}</h1>
+                    </div>
                   )
                 );
               })}
@@ -74,6 +76,10 @@ function BookShow() {
         })}
       </div>
     );
+  };
+
+  const onToken = (token) => {
+    console.log(token);
   };
 
   useEffect(() => {
@@ -106,6 +112,17 @@ function BookShow() {
         {/* Seats */}
 
         <div className="flex justify-center mt-2">{getSeats()}</div>
+
+        <div className="mt-2">
+          <StripeCheckout
+            token={onToken}
+            //tot qty of the seats * price of the show.
+            amount={seletedSeats.length * show.ticketPrice * 100}
+            stripeKey="pk_test_51OoSvVSDEzzlJpB9sjxGI0I9p1PaC3S4KqbcubK20IqklWtbrh4p7ZQv9834v3bUD1syEMcadvzs57kzLnoYOCWN00eYBU2U3K"
+          >
+            <Button title="Book Now" />
+          </StripeCheckout>
+        </div>
       </div>
     )
   );
