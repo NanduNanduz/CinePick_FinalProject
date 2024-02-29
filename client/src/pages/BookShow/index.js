@@ -113,7 +113,7 @@ function BookShow() {
 
         <div className="flex justify-center mt-2">{getSeats()}</div>
 
-        <div className="mt-2">
+        <div className="mt-2 flex justify-center">
           <StripeCheckout
             token={onToken}
             //tot qty of the seats * price of the show.
