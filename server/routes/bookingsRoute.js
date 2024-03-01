@@ -66,7 +66,7 @@ router.post("/book-show", authMiddleware, async (req, res) => {
 // get all bookings by user
 router.get("/get-bookings", authMiddleware, async (req, res) => {
   try {
-    const bookings = await Booking.find({ user: req.body.user._id })
+    const bookings = await Booking.find({ user: req.body.userId})
       .populate("show")
       .populate({
         path: "show",
