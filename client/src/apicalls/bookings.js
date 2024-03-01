@@ -25,3 +25,13 @@ export const BookShowTickets = async (payload) => {
     return error.response.data;
   }
 };
+
+//get bookings of a user
+export const GetBookingsOfUser = async () => {
+  try {
+    const response = await axiosInstance.get("/api/bookings/get-bookings");
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
