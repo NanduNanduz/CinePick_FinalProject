@@ -76,8 +76,11 @@ thead th {
   color: white !important;
 }
 
+/* cant select the booked seats */
 .booked-seat {
   background-color: #b1b1b1;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 /* loader */
