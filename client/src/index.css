@@ -9,8 +9,12 @@ body{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    color: rgb(43, 43, 43);
+   
 }
+h1,span{
+    color: rgb(69, 69, 69);
+}
+
 .ant-form-item{
     margin-bottom: 10px;
 }
