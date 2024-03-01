@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const stripe = require("stripe")(process.env.stripe_key);
 const authMiddleware = require("../middlewares/authMiddleware");
+const Booking = require("../models/bookingModel");
+const Show = require("../models/showModel");
 
 //make Payment
 router.post("/make-payment", authMiddleware, async (req, res) => {
@@ -33,5 +35,34 @@ router.post("/make-payment", authMiddleware, async (req, res) => {
     });
   }
 });
+
+//book shows
+router.post("/book-show", authMiddleware, async (req, res) => {
+  try {
+    //save booking
+
+    const newBooking = new Booking(req.body);
+    await newBooking.save();
+
+    const show = await Show.findById(req.body.show);
+    //update seats(seats going to block)
+    await Show.findByIdAndUpdate(req.body.show, {
+      bookedSeats : [...show.bookedSeats, ...req.body.seats],
+    });
+
+    res.send({
+      success: true,
+      message: "Show booked successfully",
+      data: newBooking,
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
+
 
 module.exports = router;
