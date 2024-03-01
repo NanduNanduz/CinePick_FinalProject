@@ -1,19 +1,21 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
 import { message } from "antd";
 import { GetShowById } from "../../apicalls/theatres";
 import moment from "moment";
 import StripeCheckout from "react-stripe-checkout";
 import Button from "../../components/Button";
-import { MakePayment } from "../../apicalls/bookings";
+import { BookShowTickets, MakePayment } from "../../apicalls/bookings";
 
 function BookShow() {
+  const { user } = useSelector((state) => state.users);
   const [show, setShow] = React.useState(null);
   const [seletedSeats, setSeletedSeats] = React.useState([]);
   const params = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const getData = async () => {
     try {
@@ -79,15 +81,38 @@ function BookShow() {
     );
   };
 
+  const book = async (transactionId) => {
+    try {
+      dispatch(ShowLoading());
+      const response = await BookShowTickets({
+        show: params.id,
+        seats: seletedSeats,
+        transactionId,
+        user: user._id,
+      });
+      if (response.success) {
+        message.success(response.message);
+        navigate("/profile");
+      } else {
+        message.error(response.message);
+      }
+      dispatch(HideLoading());
+    } catch (error) {
+      message.error(error.message);
+      dispatch(HideLoading());
+    }
+  };
+
   const onToken = async (token) => {
     try {
       dispatch(ShowLoading());
       const response = await MakePayment(
         token,
-        seletedSeats.length * show.ticketPrice * 100,
+        seletedSeats.length * show.ticketPrice * 100
       );
       if (response.success) {
         message.success(response.message);
+        book(response.data);
       } else {
         message.error(response.message);
       }
@@ -137,7 +162,7 @@ function BookShow() {
               //tot qty of the seats * price of the show.
               amount={seletedSeats.length * show.ticketPrice * 100}
               billingAddress
-              stripeKey="pk_test_51OoSvVSDEzzlJpB9sjxGI0I9p1PaC3S4KqbcubK20IqklWtbrh4p7ZQv9834v3bUD1syEMcadvzs57kzLnoYOCWN00eYBU2U3K"
+              stripeKey="pk_test_51OpP5jAcE0EosW0XCa3hm4ZrM2GuUr4Z4RsyhGMidsj27vAGVZnta0jfJhGIHtokJxIDnciK8a3ZGURI9vx2qGQi00aNmn88gi"
             >
               <Button title="Book Now" />
             </StripeCheckout>
