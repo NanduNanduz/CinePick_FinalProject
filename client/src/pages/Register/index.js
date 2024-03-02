@@ -17,9 +17,9 @@ function Register() {
       const response = await RegisterUser(values)
       dispatch(HideLoading());
       if (response.success) {
-        //message from AntD
-        
-        message.success(response.message);    
+        //message from AntD    
+        message.success(response.message); 
+        navigate("/login");
       } else {
         message.error(response.message);
       }
