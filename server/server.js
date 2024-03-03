@@ -16,6 +16,28 @@ app.use("/api/theatres",theatresRoute);
 app.use("/api/bookings",bookingsRoute);
 
 const port  = process.env.PORT || 5000;
+
+
+
+
+const path = require("path");
+__dirname = path.resolve();
+// render deployment
+//check env is development or production , then only it will execute the logic 
+if (process.env.NODE_ENV === "production") {
+    //line tell the compiler which is our client / which is static related data
+  app.use(express.static(path.join(__dirname, "/client/build")));
+  app.get("*", (req, res) => {
+    //just need to send index.html to the client because we are building a single page application so only one html file to render on the browser
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+  });
+}
+
+
+
+
+
+
 app.listen(port, () => 
 console.log(`Node js server is running  on port ${port}`)
 );
