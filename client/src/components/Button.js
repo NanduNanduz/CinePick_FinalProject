@@ -6,7 +6,7 @@ function Button({ title, onClick, variant, disabled, fullWidth, type }) {
 
     if (fullWidth)
      {
-        className += 'w-full'
+        className += ''
     }
     if (variant==='outlined')
      {
