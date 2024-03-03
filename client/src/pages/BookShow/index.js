@@ -132,7 +132,7 @@ function BookShow() {
         {/* Show Information */}
         <div className="flex justify-between card p-2 items-center">
           <div>
-            <h1 className="text-xl">{show.theatre.name}</h1>
+            <h1 className="text-sm">{show.theatre.name}</h1>
             <h1 className="text-sm">{show.theatre.address}</h1>
           </div>
 
@@ -143,7 +143,7 @@ function BookShow() {
           </div>
 
           <div>
-            <h1 className="text-xl">
+            <h1 className="text-sm">
               {moment(show.date).format("MMM Do yyyy")} -{" "}
               {moment(show.time, "HH:mm").format("hh:mm A")}
             </h1>
@@ -156,7 +156,16 @@ function BookShow() {
         {/* once after selecting the seats Book Now button will show */}
 
         {seletedSeats.length > 0 && (
-          <div className="mt-2 flex justify-center">
+          <div className="mt-2 flex justify-center gap-2 items-center flex-col">
+            <div className="flex justify-center">
+              <div className="flex uppercase card p-2 gap-3">
+                <h1 className="text-sm"><b>Selected Seats: </b>{seletedSeats.join(" , ")}</h1>
+                <h1 className="text-sm">
+                  <b>Total Price:</b> {seletedSeats.length * show.ticketPrice}
+                </h1>
+              </div>
+            </div>
+
             <StripeCheckout
               token={onToken}
               //tot qty of the seats * price of the show.
