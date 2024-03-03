@@ -1,18 +1,18 @@
-import { message, Modal } from 'antd'
-import React from 'react'
-import { Form } from 'antd'
+import { message, Modal } from "antd";
+import React from "react";
+import { Form } from "antd";
 import Button from "../../components/Button";
-import { useDispatch, useSelector } from 'react-redux';
-import { HideLoading, ShowLoading } from '../../redux/loadersSlice';
-import { AddTheatre, UpdateTheatre } from '../../apicalls/theatres';
+import { useDispatch, useSelector } from "react-redux";
+import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
+import { AddTheatre, UpdateTheatre } from "../../apicalls/theatres";
 function TheatreForm({
-    showTheatreFormModal,
-    setShowTheatreFormModal,
-    formType,
-    setFormType,
-    selectedTheatre,
-    setSelectedTheatre,
-    getData,
+  showTheatreFormModal,
+  setShowTheatreFormModal,
+  formType,
+  setFormType,
+  selectedTheatre,
+  setSelectedTheatre,
+  getData,
 }) {
   const { user } = useSelector((state) => state.users);
   const dispatch = useDispatch();
@@ -44,8 +44,8 @@ function TheatreForm({
       message.error(error.message);
     }
   };
-  
-  //model pop up from antd 
+
+  //model pop up from antd
   return (
     <Modal
       title={formType === "add" ? "Add Theatre" : "Edit Theatre"}
@@ -59,7 +59,7 @@ function TheatreForm({
       <Form
         layout="vertical"
         onFinish={onFinish}
-      //popup the form with  already existing values(initial values) when going to edit 
+        //popup the form with  already existing values(initial values) when going to edit
         initialValues={selectedTheatre}
       >
         <Form.Item
@@ -113,4 +113,4 @@ function TheatreForm({
   );
 }
 
-export default TheatreForm
+export default TheatreForm;

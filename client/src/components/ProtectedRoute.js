@@ -1,13 +1,13 @@
-import { message } from 'antd';
-import useSelection from 'antd/es/table/hooks/useSelection';
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { GetCurrentUser } from '../apicalls/users';
-import { HideLoading, ShowLoading } from '../redux/loadersSlice';
-import { SetUser } from '../redux/usersSlice';
+import { message } from "antd";
+import useSelection from "antd/es/table/hooks/useSelection";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { GetCurrentUser } from "../apicalls/users";
+import { HideLoading, ShowLoading } from "../redux/loadersSlice";
+import { SetUser } from "../redux/usersSlice";
 
-//children - home page 
+//children - home page
 function ProtectedRoute({ children }) {
   const { user } = useSelector((state) => state.users);
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ function ProtectedRoute({ children }) {
       } else {
         dispatch(SetUser(null));
         message.error(response.message);
-        localStorage.removeItem('token');
+        localStorage.removeItem("token");
         navigate("/login");
       }
     } catch (error) {
@@ -73,7 +73,7 @@ function ProtectedRoute({ children }) {
 
             <i
               className="ri-logout-circle-r-line ml-2"
-              //logout 
+              //logout
               onClick={() => {
                 localStorage.removeItem("token");
                 navigate("/login");

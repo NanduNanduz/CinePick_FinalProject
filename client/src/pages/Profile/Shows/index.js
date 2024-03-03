@@ -4,7 +4,11 @@ import Button from "../../../components/Button";
 import { GetAllMovies } from "../../../apicalls/movies";
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../../../redux/loadersSlice";
-import { AddShow, DeleteShow, GetAllShowsByTheatre } from "../../../apicalls/theatres";
+import {
+  AddShow,
+  DeleteShow,
+  GetAllShowsByTheatre,
+} from "../../../apicalls/theatres";
 import moment from "moment";
 
 function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
@@ -58,19 +62,19 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
     }
   };
 
-  const handleDelete = async(id)=>{
-    try{
+  const handleDelete = async (id) => {
+    try {
       dispatch(ShowLoading());
-      const response = await DeleteShow({showId: id});
+      const response = await DeleteShow({ showId: id });
 
-      if (response.success){
+      if (response.success) {
         message.success(response.message);
         getData();
-      }else{
-        message.error(response.message)
+      } else {
+        message.error(response.message);
       }
       dispatch(HideLoading());
-    }catch(error) {
+    } catch (error) {
       message.error(error.message);
       dispatch(HideLoading());
     }

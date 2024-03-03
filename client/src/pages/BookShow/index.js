@@ -159,7 +159,10 @@ function BookShow() {
           <div className="mt-2 flex justify-center gap-2 items-center flex-col">
             <div className="flex justify-center">
               <div className="flex uppercase card p-2 gap-3">
-                <h1 className="text-sm"><b>Selected Seats: </b>{seletedSeats.join(" , ")}</h1>
+                <h1 className="text-sm">
+                  <b>Selected Seats: </b>
+                  {seletedSeats.join(" , ")}
+                </h1>
                 <h1 className="text-sm">
                   <b>Total Price:</b> {seletedSeats.length * show.ticketPrice}
                 </h1>

@@ -8,7 +8,7 @@ import { Mongoose } from "mongoose";
 import moment from "moment";
 
 function Home() {
-  const [searchText ="", setSearchText] = React.useState("");
+  const [searchText = "", setSearchText] = React.useState("");
   const [Movies, setMovies] = React.useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -39,12 +39,12 @@ function Home() {
         className="search-input"
         placeholder="Search for movies"
         value={searchText}
-        onChange={(e)=> setSearchText(e.target.value)}
+        onChange={(e) => setSearchText(e.target.value)}
       />
       <Row gutter={[20]} className="mt-2">
-        {Movies
-        .filter((movie) => movie.title.toLowerCase().includes(searchText.toLowerCase()))
-        .map((movie) => (
+        {Movies.filter((movie) =>
+          movie.title.toLowerCase().includes(searchText.toLowerCase())
+        ).map((movie) => (
           <Col span={6}>
             <div
               className="card flex flex-col gap-1 cursor-pointer"
